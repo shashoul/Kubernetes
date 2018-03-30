@@ -1,0 +1,38 @@
+---
+kind: Service   
+apiVersion: v1
+metadata:
+  name: mynginx-service
+spec:
+  selector:
+    app: mynginx
+  ports:
+    - protocol: "TCP"
+      # Port accessible inside cluster
+      port: 8080
+      # Port to forward to inside the pod
+      targetPort: 80
+      # Port accessible outside cluster
+      nodePort: 30222
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mynginx-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mynginx
+  template:
+    metadata:
+      labels:
+        app: mynginx
+    spec:
+      containers:
+        - name: mynginx-pod
+          image: nginx
+          ports:
+            - containerPort: 80
