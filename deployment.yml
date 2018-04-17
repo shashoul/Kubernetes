@@ -5,7 +5,7 @@ metadata:
   name: hello-world-service
 spec:
   selector:
-    app: tutum-hello-world
+    app: tutum-hello-world  
   ports:
     - protocol: "TCP"
       # Port accessible inside cluster
