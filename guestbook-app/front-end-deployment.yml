@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-end-service
+    #labels:
+     #   app: guestbook-service
+      #  name: front-end-service
+spec:
+    #type: LoadBalancer
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    app: shady-guestbook
+    name: front-end-pod
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-end
+    #labels:
+     #   app: guestbook-deployment
+      #  name: front-end-deployment
+spec:
+    #replicas: 1
+  selector:
+    matchLabels:
+      app: shady-guestbook
+      name: front-end-pod
+  template:
+    metadata:
+      labels:
+        app: shady-guestbook
+        name: front-end-pod
+    spec:
+      containers:
+        - name: front-end
+          image: kubernetes/guestbook:v2
+          ports:
+            - containerPort: 3000

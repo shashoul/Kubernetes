@@ -9,10 +9,10 @@ metadata:
 spec:
   selector:
     app: guestbook-app
-  type: Nodeport
+  type: NodePort
   ports:
    - port: 80
-     targetPort: 80 
+     targetPort: 3000 
 
 ---
 apiVersion: apps/v1
@@ -20,9 +20,7 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: myapp-deployment
-  labels:
-    app: guestbook-app 
+  name: myapp-deployment 
 
 spec:
 
@@ -40,4 +38,4 @@ spec:
         - name: my-guestbook-app
           image: kubernetes/guestbook:v2
           ports:
-           - containerPort: 80
+           - containerPort: 3000
