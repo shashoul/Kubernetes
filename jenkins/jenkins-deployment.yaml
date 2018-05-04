@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: jenkins
+  name: jenkins_service
 spec:
   type: LoadBalancer
   ports:
@@ -19,12 +19,15 @@ spec:
 
 ---
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jenkins
+  name: jenkins_deployment
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
   template:
     metadata:
       labels:
@@ -32,14 +35,14 @@ spec:
     spec:
       containers:
       - name: jenkins
-        image: jenkins:2.32.2
+        image: jenkins:alpine
         ports:
-        - containerPort: 8080
-        volumeMounts:
-          - name: jenkins-home
-            mountPath: /var/jenkins_home
-      volumes:
-        - name: jenkins-home
-          # save jenkins data when the container is crash.
-          # for more options review: https://kubernetes.io/docs/concepts/storage/volumes/
-          emptyDir: {}
+          - containerPort: 8080
+#        volumeMounts:
+#          - name: jenkins-home
+#            mountPath: /var/jenkins_home
+#      volumes:
+#        - name: jenkins-home
+#          # save jenkins data when the container is crash.
+#          # for more options review: https://kubernetes.io/docs/concepts/storage/volumes/
+#          emptyDir: {}
