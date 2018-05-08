@@ -1,4 +1,4 @@
-From jenkins/jenkins:2.60.1
+FROM jenkins/jenkins:2.60.1
 # Distributed Builds plugins
 RUN /usr/local/bin/install-plugins.sh ssh-slaves
 # install Notifications and Publishing plugins
