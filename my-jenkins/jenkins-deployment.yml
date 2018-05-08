@@ -27,10 +27,10 @@ spec:
     spec:
       containers:
         - name: jenkins
-          image: jenkins-master
-          env:
-            - name: JAVA_OPTS
-              value: -Djenkins.install.runSetupWizard=false
+          image: jenkins:alpine #jenkins-master
+#          env:
+#            - name: JAVA_OPTS
+#              value: -Djenkins.install.runSetupWizard=false
           ports:
             - name: http-port
               containerPort: 8080
