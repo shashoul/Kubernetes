@@ -46,3 +46,7 @@ spec:
 #          # save jenkins data when the container is crash.
 #          # for more options review: https://kubernetes.io/docs/concepts/storage/volumes/
 #          emptyDir: {}
+        volumes: 
+          - name: jenkins-home
+            hostPath:
+              path: /home/jenkins 
